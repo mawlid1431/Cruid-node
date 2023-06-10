@@ -38,4 +38,30 @@ router.delete('/:id', (req, res) => {
   res.send(`Deleted the user with the ID ${id} and removed from the database.`);
 });
 
+
+
+
+
+//patch section is here 
+
+
+router.patch('/:id', (req, res) => {
+  const { id } = req.params;
+  const { name, nationality, city, age } = req.body;
+  const userUpdate = userz.find((user) => user.id === id);
+
+  if (!userUpdate) {
+    res.status(404).send('User not found.');
+    return;
+  }
+
+  if (name) userUpdate.name = name;
+  if (nationality) userUpdate.nationality = nationality;
+  if (city) userUpdate.city = city;
+  if (age) userUpdate.age = age;
+
+  res.send(`User with ID ${id} has been updated.`);
+});
+
+
 export default router;
