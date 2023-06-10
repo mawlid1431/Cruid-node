@@ -3,7 +3,7 @@ const router = express.Router();
 
 import { v4 as uuidv4 } from 'uuid';
 
-const userz = [];
+let userz = [];
 
 router.get("/", (req, res) => {
   res.send(userz);
@@ -20,9 +20,7 @@ router.post('/', (req, res) => {
   res.send(`User with the username ${newUser.name} added to the database.`);
 });
 
-
-
- //getting by id 
+// Getting user by ID
 router.get('/:id', (req, res) => {
   const { id } = req.params;
   const findUser = userz.find((user) => user.id === id);
@@ -33,11 +31,11 @@ router.get('/:id', (req, res) => {
   }
 });
 
-
-// deleted user by id 
-router.delete('/:id',(req,res)=>{
+// Deleting user by ID
+router.delete('/:id', (req, res) => {
   const { id } = req.params;
-  
-})
+  userz = userz.filter((user) => user.id !== id);
+  res.send(`Deleted the user with the ID ${id} and removed from the database.`);
+});
 
 export default router;
